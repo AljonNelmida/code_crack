@@ -1,9 +1,30 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 class QuizRepository {
+  String baseUrl ="";
 
-  final String baseUrl = "http://192.168.68.104:3000/api/quizzes";
+  QuizRepository() {
+    initializeBaseUrl();
+  }
+
+  Future<void> initializeBaseUrl() async {
+    final ipAddress = await getIpAddress();
+    if (ipAddress != null) {
+      baseUrl = "http://$ipAddress:3000/api/quizzes"; // Add protocol, port, and path
+    } else {
+      baseUrl = "http://192.168.68.100:3000/api/quizzes"; // Default fallback
+    }
+  }
+
+  Future<String?> getIpAddress() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString("ipaddress");
+  }
+
+
   Future<List<dynamic>> fetchQuizzes() async {
+    await ensureBaseUrlInitialized();
     try {
       final response = await http.get(Uri.parse(baseUrl));
 
@@ -20,6 +41,7 @@ class QuizRepository {
 
   // Fetch quizzes by tags
   Future<List<dynamic>> fetchQuizzesByTags(List<String> tags) async {
+    await ensureBaseUrlInitialized();
     try {
       final url = "$baseUrl/tags"; // Endpoint for quizzes by tags
       final response = await http.post(
@@ -41,6 +63,12 @@ class QuizRepository {
       }
     } catch (e) {
       throw Exception("Error fetching quizzes by tags: $e");
+    }
+  }
+
+  Future<void> ensureBaseUrlInitialized() async {
+    if (baseUrl.isEmpty) {
+      await initializeBaseUrl();
     }
   }
 }

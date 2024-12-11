@@ -1,3 +1,4 @@
+import 'package:code_crack/ip_address.dart';
 import 'package:code_crack/repository/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +31,20 @@ class _AuthenticationState extends State<Login> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+      appBar: AppBar(actions: [
+        IconButton(onPressed: (){
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return const IpAddress();
+              },
+            ),
+          );
+        }, icon: const Icon(Icons.change_circle))
+      ],backgroundColor: Colors.transparent),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(

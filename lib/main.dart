@@ -1,4 +1,5 @@
 import 'package:code_crack/home.dart';
+import 'package:code_crack/ip_address.dart';
 import 'package:code_crack/login.dart';
 import 'package:code_crack/quiz.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const Login()
+      home: const IpAddress()
     );
   }
 }
