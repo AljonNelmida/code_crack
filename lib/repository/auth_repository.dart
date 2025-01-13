@@ -12,10 +12,10 @@ class AuthRepository {
     print("getting ip address");
     final ipAddress = await getIpAddress();
     if (ipAddress != null) {
-      baseUrl = "http://$ipAddress:3000/api/users"; // Add protocol, port, and path
+      baseUrl = "https://code-crack-node.vercel.app/api/users"; // Add protocol, port, and path
       print("Got in shared pref $baseUrl");
     } else {
-      baseUrl = "http://192.168.68.100:3000/api/users"; // Default fallback
+      baseUrl = "https://code-crack-node.vercel.app/api/users"; // Default fallback
       print("default $baseUrl");
     }
   }

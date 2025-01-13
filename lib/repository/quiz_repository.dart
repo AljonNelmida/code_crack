@@ -11,9 +11,9 @@ class QuizRepository {
   Future<void> initializeBaseUrl() async {
     final ipAddress = await getIpAddress();
     if (ipAddress != null) {
-      baseUrl = "http://$ipAddress:3000/api/quizzes"; // Add protocol, port, and path
+      baseUrl = "https://code-crack-node.vercel.app/api/quizzes"; // Add protocol, port, and path
     } else {
-      baseUrl = "http://192.168.68.100:3000/api/quizzes"; // Default fallback
+      baseUrl = "https://code-crack-node.vercel.app/api/quizzes"; // Default fallback
     }
   }
 
